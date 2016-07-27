@@ -1,0 +1,16 @@
+{
+  "name": "hlang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "interpreter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hurricane Hamilton <hhamilto@mtu.edu>",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.14.0",
+    "log4js": "^0.6.38",
+    "slexer": "^0.1.0"
+  }
+}
