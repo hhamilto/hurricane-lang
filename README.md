@@ -35,15 +35,15 @@ Since I wrote the interpreter in JavaScript, the language inherits the little ty
 
 # Functions included in the standard library:
 
-* + - adds two numbers - binary, curried
-* * - multplies two numbers - binary, curried
-* print - prints one arg - unary
-* compose - composes two functions - binary, uncurried
-* concat - contactenates two args that it converts to strings - binary, curried
+* `+` - adds two numbers - *binary, curried*
+* `*` - multplies two numbers - *binary, curried*
+* `print` - prints one arg - *unary*
+* `compose` - composes two functions - *binary, uncurried*
+* `concat` - contactenates two args that it converts to strings - *binary, curried*
 
 # Getting started
 
-clone the repo and then run:
+Clone the repo and then run:
 
     npm install
 
