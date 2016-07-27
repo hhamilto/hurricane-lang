@@ -5,7 +5,7 @@ var fs = require('fs')
 var util = require('util')
 var Slexer = require('slexer').default
 var logger = require('log4js').getLogger()
-logger.setLevel('debug')
+logger.setLevel('info')
 logger.info('Running file: '+process.argv[2])
 
 var standardLib = {
