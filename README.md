@@ -6,7 +6,7 @@ The language is entirely contained in `interpreter.js`. You can interpret a file
 
 # Syntax
 
-The only construct the language supports is the function call. It uses postfix notation. Arguments are sandwiched between `;` and `;` .
+The only construct the language supports is the function call. It uses postfix notation. Arguments are sandwiched between `:` and `;` .
 
 
 ## example
