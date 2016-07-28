@@ -1,11 +1,12 @@
 'use strict'
 
+
+var Lexer = require('simpler-lexer').default
 var fp = require('lodash/fp')
 var fs = require('fs')
 var util = require('util')
-var Slexer = require('slexer').default
 var logger = require('log4js').getLogger()
-logger.setLevel('info')
+logger.setLevel('debug')
 logger.info('Running file: '+process.argv[2])
 
 var standardLib = {
@@ -18,51 +19,59 @@ var standardLib = {
 	'*': (n1)=>{
 		return (n2)=>n1*n2
 	},
-	concat: (piece1)=>(piece2)=> ''+piece1+piece2,
-	compose: fp.compose
+	concat: piece1=>piece2=> ''+piece1+piece2,
+	compose: fp.compose,
+	if: trueFun=>falseFun=>boolean=>boolean?trueFun():falseFun,
+	wrap: arg=>{
+		var args = []
+		var addArg = arg=>{
+			if(typeof arg == 'function'){
+				return ()=>arg.apply(null, args)
+			}
+			args.push(arg)
+			return addArg
+		}
+		return addArg(arg)
+	},
+	cons: list=>item=>(list?list:[]).concat(item)
 }
 
-const slexer = Slexer({
-	lexicon: [':', ';', "'", 'print', ' ', '\t', '\n', ',', '\d+', '+', '*']
-})
+let lexer = new Lexer([
+	{name:'startFunctionCallArgs', rule: /:/},
+	{name:'endFunctionCallArgs', rule: /;/},
+	{name:'argSeparator', rule: /,/},
+	{name:'string', rule: /'[^']*'/},
+	{name:'whitespace', rule: /\s+/},
+	{name:'number', rule: /\d+/},
+	{name:'functionIdentifier', rule: /(\w+|\+|\*)/}
+])
 
-var types = ['string', 'number', 'function']
 
-fs.createReadStream(process.argv[2]).pipe(slexer);
+var types = ['string', 'number', 'function', 'list']
+
 
 var evl = function(tokens){
 	var nextToken = tokens.shift()
-	logger.debug('evl called with next token of: '+util.inspect(nextToken))
+	logger.debug('evl called with next token of: '+nextToken.value+' '+nextToken.type)
 	
-	if(nextToken.lexeme == "'"){
-		var string = ''
-		while ( tokens.length != 0 ) {
-			var stringPart = tokens.shift()
-			if(stringPart.lexeme == "'"){
-				logger.debug('parsed string: '+string)
-				return {
-					type: 'string',
-					value: string
-				}
-			}
-			string+=stringPart.lexeme
+	if(nextToken.type == "string"){
+		return {
+			type:'string',
+			value: nextToken.value.slice(1,-1)//trim dem quotes
 		}
 	}
-	if(nextToken.lexeme == ' ')
-		throw new Error('whitespace encountered during parsing')
-	if(nextToken.lexeme == '\t')
-		throw new Error('whitespace encountered during parsing')
-	if(nextToken.lexeme == ':' ){
+	if(nextToken.type == 'startFunctionCallArgs' ){
 		logger.debug('parsing function call')
 		var args = []
 		while ( tokens.length != 0 ) {
 			var arg = evl(tokens)
-			args.push(arg)
+			if(arg.type != 'backup')
+				args.push(arg)
 			var comma = tokens.shift()
-			if(comma.lexeme == ';')
+			if(comma.type == 'endFunctionCallArgs')
 				break
-			if(comma.lexeme != ',')
-				throw new Error('Expected comma found lexeme:'+util.inspect(comma))
+			if(comma.type != 'argSeparator')
+				throw new Error('Expected comma found value:'+util.inspect(comma))
 		}
 		var fun = evl(tokens)
 		if(fun.type != 'function')
@@ -75,40 +84,40 @@ var evl = function(tokens){
 			value: returnVal  
 		}
 	}
-	if(/^\d+$/.test(nextToken.lexeme)){
-		logger.debug('found number: '+nextToken.lexeme)
+	if(nextToken.type == 'number'){
+		logger.debug('found number: '+nextToken.value)
 		return {
 			type: 'number',
-			value: parseFloat(nextToken.lexeme)
+			value: parseFloat(nextToken.value)
 		}
 	}
-	if(nextToken.lexeme == ','){
+	if(nextToken.type == 'argSeparator'){
 		throw Error('unexpected comma: '+util.inspect(nextToken))
 	}
-	var stdLibFunction = standardLib[nextToken.lexeme]
-	if(stdLibFunction){
-		logger.debug('found function: '+nextToken.lexeme)
+	if(nextToken.type == 'endFunctionCallArgs'){
+		tokens.unshift(nextToken)
 		return {
-			type:'function',
-			value: stdLibFunction
+			type: 'backup',
+			value: null
 		}
+	}
+	if(nextToken.type == 'functionIdentifier'){
+		var stdLibFunction = standardLib[nextToken.value]
+		if(stdLibFunction){
+			logger.debug('found function: '+nextToken.value)
+			return {
+				type:'function',
+				value: stdLibFunction
+			}
+		}
+		throw new Error('Could not find function with name: '+nextToken.value)
 	}
 	if(nextToken.end != true){
 		logger.debug('falling off the end with token: ')
-		console.log(nextToken)
+		logger.debug(nextToken)
 	}
 
 }
 
-var tokens = []
-slexer.on('readable', () => {
-	let token = slexer.read();
-	while (token) {
-		tokens.push(token)
-		token = slexer.read();
-	}
-});
-
-slexer.on('end', function(){
-	evl(fp.filter(token => !/^\s+$/.test(token.lexeme), tokens))
-})
+var tokens = lexer.tokenize(fs.readFileSync(process.argv[2]).toString())
+evl(tokens)

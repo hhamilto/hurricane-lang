@@ -21,7 +21,7 @@ writes this to standard out:
 
 # Types
 
-Since I wrote the interpreter in JavaScript, the language inherits the little typing it has from JavaScript. Admittedly, the typing is next to non-existant, but the laguage has at least these three types: 'number', 'string', and 'function'
+Since I wrote the interpreter in JavaScript, the language inherits the little typing it has from JavaScript. Admittedly, the typing is next to non-existant, but the laguage has at least these three types: 'number', 'string', and 'function'. I also added a 'list' type, which is a little one off. The list type is represented internally as a JavaScript array.
 
 
 # Buzzwords

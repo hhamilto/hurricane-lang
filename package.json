@@ -11,6 +11,6 @@
   "dependencies": {
     "lodash": "^4.14.0",
     "log4js": "^0.6.38",
-    "slexer": "^0.1.0"
+    "simpler-lexer": "^0.1.4"
   }
 }
