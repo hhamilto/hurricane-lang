@@ -44,6 +44,7 @@ Since I wrote the interpreter in JavaScript, the language inherits the little ty
 * `cons` - Pass an item to return a list. Pass a list and call the resulting function with an item to add it to the list - *binary or unary, curried*
 * `wrap` - Takes the function to wrap and the list of args. Use `cons` to build the list. *binary, curried* 
 * `if` - 0 counts as false, everything else counts as true. `if` function takes `function called on true`, `function called on false`, `number to test`. Use `wrap` to create the "true" and "false" functions. - *ternary, curried*
+* `list` - Cheaters way to make a list. Takes unlimited arguments. Returns its arguments as a list. - *?multinary, uncurried*
 
 
 # Getting started

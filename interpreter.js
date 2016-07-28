@@ -32,6 +32,9 @@ var standardLib = {
 			return item=>list.concat(item)
 		else
 			return [list]
+	},
+	list: function(){
+		return Array.prototype.slice.call(arguments)
 	}
 }
 
