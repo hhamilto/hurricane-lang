@@ -32,7 +32,9 @@ Since I wrote the interpreter in JavaScript, the language inherits the little ty
 * Functional Composition
 * First Class functions
 * Reverse Polish Notation
+* Has `cons`
 * Side effect free, not used in production anywhere.
+* Gluten free*
 
 # Functions included in the standard library:
 
@@ -75,3 +77,5 @@ Examples are stored under `examples` you can run the hello world example like th
 1. `examples/06_wrap.s`
 1. `examples/07_if.s`
 1. `examples/08_list.s`
+
+* Tests below FDA guidelines for gluten free labeling of 20ppm.
