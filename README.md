@@ -38,6 +38,10 @@ Since I wrote the interpreter in JavaScript, the language inherits the little ty
 
 * `+` - Adds two numbers - *binary, curried*
 * `*` - Multplies two numbers - *binary, curried*
+* `/` - (interger) Divides two numbers - *binary, curried*
+* `-` - Subtracts two numbers - *binary, curried*
+* `%` - Mods two numbers - *binary, curried*
+* `=` - Tests if two numbers are equal. Returns 1 if they are else returns 0. - *binary, curried*
 * `print` - Prints one arg - *unary*
 * `compose` - Composes two functions - *binary, uncurried*
 * `concat` - Contactenates two args that it converts to strings - *binary, curried*

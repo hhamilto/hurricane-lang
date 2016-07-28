@@ -19,6 +19,18 @@ var standardLib = {
 	'*': (n1)=>{
 		return (n2)=>n1*n2
 	},
+	'/': (n1)=>{
+		return (n2)=>Math.floor(n1/n2)
+	},
+	'-': (n1)=>{
+		return (n2)=>n1-n2
+	},
+	'%': (n1)=>{
+		return (n2)=>n1%n2
+	},
+	'=': (n1)=>{
+		return (n2)=>n1==n2
+	},
 	concat: piece1=>piece2=> ''+piece1+piece2,
 	compose: fp.compose,
 	if: trueFun=>falseFun=>boolean=>boolean?trueFun():falseFun(),
@@ -45,7 +57,7 @@ let lexer = new Lexer([
 	{name:'string', rule: /'[^']*'/},
 	{name:'whitespace', rule: /\s+/},
 	{name:'number', rule: /\d+/},
-	{name:'functionIdentifier', rule: /(\w+|\+|\*)/}
+	{name:'functionIdentifier', rule: /(\w+|\+|\*|\/|-|%|=)/}
 ])
 
 
