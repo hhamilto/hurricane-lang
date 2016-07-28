@@ -78,4 +78,4 @@ Examples are stored under `examples` you can run the hello world example like th
 1. `examples/07_if.s`
 1. `examples/08_list.s`
 
-* Tests below FDA guidelines for gluten free labeling of 20ppm.
+\* Tests below FDA guidelines for gluten free labeling of 20ppm.
