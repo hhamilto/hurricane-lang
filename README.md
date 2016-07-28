@@ -3,7 +3,7 @@
 
 This is a custom toy language that I put together as an exercise. The interpreter uses a recursive descent parser and runs in [Node.js](https://nodejs.org/).
 
-The language is entirely contained in `interpreter.js`. You can interpret a file by running something like this: `node interpreter.js path/to/file.hh`
+The language is entirely contained in `interpreter.js`. You can interpret a file by running something like this: `node interpreter.js path/to/file.s`
 
 # Syntax
 
@@ -57,13 +57,13 @@ Clone the repo and then run:
 
     npm install
 
-After that you can run programs like this: `node interpreter.js path/to/file.hh`
+After that you can run programs like this: `node interpreter.js path/to/file.s`
 
 # Running examples
 
 Examples are stored under `examples` you can run the hello world example like this:
 
-    node interpreter.js examples/01_hello_world.hh
+    node interpreter.js examples/01_hello_world.s
     
 ## List of examples:
 
