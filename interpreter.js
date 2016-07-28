@@ -21,17 +21,11 @@ var standardLib = {
 	},
 	concat: piece1=>piece2=> ''+piece1+piece2,
 	compose: fp.compose,
-	if: trueFun=>falseFun=>boolean=>boolean?trueFun():falseFun,
-	wrap: arg=>{
-		var args = []
-		var addArg = arg=>{
-			if(typeof arg == 'function'){
-				return ()=>arg.apply(null, args)
-			}
-			args.push(arg)
-			return addArg
+	if: trueFun=>falseFun=>boolean=>boolean?trueFun():falseFun(),
+	wrap: fun=>{
+		return args=>{
+			return ()=>fun.apply(null, args)
 		}
-		return addArg(arg)
 	},
 	cons: list=>{
 		if(list instanceof Array)
@@ -84,6 +78,7 @@ var evl = function(tokens){
 		logger.debug('applying with args: ')
 		logger.debug(args)
 		var returnVal = fun.value.apply(null, fp.map('value', args))
+
 		return {
 			type: typeof returnVal,
 			value: returnVal  
