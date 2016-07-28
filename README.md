@@ -67,10 +67,11 @@ Examples are stored under `examples` you can run the hello world example like th
     
 ## List of examples:
 
-1. `examples/01_hello_world.hh`
-1. `examples/02_add_and_concat.hh`
-1. `examples/03_compose.hh`
-1. `examples/04_cons.hh`
-1. `examples/05_wrap.hh`
-1. `examples/06_if.hh`
-
+1. `examples/01_hello_world.s`
+1. `examples/02_add_and_concat.s`
+1. `examples/03_math.s`
+1. `examples/04_compose.s`
+1. `examples/05_cons.s`
+1. `examples/06_wrap.s`
+1. `examples/07_if.s`
+1. `examples/08_list.s`
