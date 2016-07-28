@@ -33,7 +33,12 @@ var standardLib = {
 		}
 		return addArg(arg)
 	},
-	cons: list=>item=>(list?list:[]).concat(item)
+	cons: list=>{
+		if(list instanceof Array)
+			return item=>list.concat(item)
+		else
+			return [list]
+	}
 }
 
 let lexer = new Lexer([
@@ -120,4 +125,4 @@ var evl = function(tokens){
 }
 
 var tokens = lexer.tokenize(fs.readFileSync(process.argv[2]).toString())
-evl(tokens)
+evl(fp.filter(token=>token.type!='whitespace')(tokens))
