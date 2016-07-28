@@ -1,9 +1,9 @@
 # sarina-lang 
 ## A Custom Language
 
-This is a custom toy language that I put together as an exercise. The interpreter uses a recursive descent parser and runs in node.
+This is a custom toy language that I put together as an exercise. The interpreter uses a recursive descent parser and runs in [Node.js](https://nodejs.org/).
 
-The language is entirely contained in `interpreter.js`. You can interpret a file by running somthing like this: `node interpreter.js path/to/file.hh`
+The language is entirely contained in `interpreter.js`. You can interpret a file by running something like this: `node interpreter.js path/to/file.hh`
 
 # Syntax
 
