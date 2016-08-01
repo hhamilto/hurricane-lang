@@ -51,6 +51,9 @@ Since I wrote the interpreter in JavaScript, the language inherits the little ty
 * `wrap` - Takes the function to wrap and the list of args. Use `cons` to build the list. *binary, curried* 
 * `if` - 0 counts as false, everything else counts as true. `if` function takes `function called on true`, `function called on false`, `number to test`. Use `wrap` to create the "true" and "false" functions. - *ternary, curried*
 * `list` - Cheaters way to make a list. Takes unlimited arguments. Returns its arguments as a list. - *?multinary, uncurried*
+* `range` - creates a list of numbers within a given range between the two arguments. - *binary, curried
+* `reduce` - iterates through a list accumulating a result. First argument is a function that takes the previous (accumulator) element, and the current element to iterate. Second argument is the list to reduce *binary, curried*
+* `map` - iterates through a list and returns a new list where the elements are transformed by a function. `map`'s first argument is the function to do the transformation (which is called on each element), and the second argument is the list to map over - *binary, curried*
 
 
 # Getting started
@@ -78,4 +81,8 @@ Examples are stored under `examples` you can run the hello world example like th
 1. `examples/07_if.s`
 1. `examples/08_list.s`
 
+
 \* Tests below FDA guidelines for gluten free labeling of 20ppm.
+
+
+

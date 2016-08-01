@@ -13,21 +13,12 @@ var standardLib = {
 	print: (text)=>{
 		console.log(text)
 	},
-	'+': (n1)=>{
-		return (n2)=>n1+n2
-	},
-	'*': (n1)=>{
-		return (n2)=>n1*n2
-	},
-	'/': (n1)=>{
-		return (n2)=>Math.floor(n1/n2)
-	},
-	'-': (n1)=>{
-		return (n2)=>n1-n2
-	},
-	'%': (n1)=>{
-		return (n2)=>n1%n2
-	},
+	'+': fp.add,
+	'*': fp.multiply,
+	'/': fp.divide,
+	'div': (n1,maybeN2)=>maybeN2?Math.floor(n1/maybeN2):(n2)=>Math.floor(n1/n2),
+	'-': fp.subtract,
+	'%': (n1,maybeN2)=>maybeN2?n1%maybeN2:(n2)=>n1%n2,
 	'=': (n1)=>{
 		return (n2)=>n1==n2
 	},
@@ -47,7 +38,10 @@ var standardLib = {
 	},
 	list: function(){
 		return Array.prototype.slice.call(arguments)
-	}
+	},
+	reduce: fp.reduce,
+	map: fp.map,
+	range: fp.range
 }
 
 let lexer = new Lexer([
